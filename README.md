@@ -3,11 +3,12 @@
 
 ### **Description**
 ```
-Fronteend project consuming the Rapid Covid19 API displaying basic covid statics for Each country in the world using charts to show Covid-19 history for the last 1 hour
+Fronteend project consuming the Rapid Covid19 API displaying basic covid statics
+for Each country in the world using charts to show Covid-19 history for the last 1 hour
 ```
 
 ### **Tools**
-*React* *Charts.js* *Redux* *AntD* *CSS* *HTML* *Javascript* *RapidAPI*
+*React* *Charts.js* *ReduxToolKit* *AntD* *CSS* *HTML* *Javascript* *RapidAPI*
 
 ### **Requirements**
 ```
