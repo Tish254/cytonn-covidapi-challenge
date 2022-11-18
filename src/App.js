@@ -1,9 +1,16 @@
-import React from 'react'
+import React from "react";
+import moment from "moment";
+
+import { useGetCountriesQuery, useGetStatisticsQuery, useGetHistoryQuery } from "./services/covidApi";
 
 const App = () => {
+  const { data, isFetching } = useGetHistoryQuery({country: "kenya", day: '2020-06-02'});
+  console.log(data);
   return (
-    <h1>App</h1>
-  )
-}
+    <div>
 
-export default App
+    </div>
+  );
+};
+
+export default App;
