@@ -1,16 +1,16 @@
 # CyHeath Covid19 Tracker
-## Cytonn Frontend Engineering Internship - Coding Challenge
+### Cytonn Frontend Engineering Internship - Coding Challenge
 
-### **Description**
+#### **Description**
 ```
 Fronteend project consuming the Rapid Covid19 API displaying basic covid statics
 for Each country in the world using charts to show Covid-19 history for the last 1 hour
 ```
 
-### **Tools**
+#### **Tools**
 *React* *Charts.js* *ReduxToolKit* *AntD* *CSS* *HTML* *Javascript* *RapidAPI*
 
-### **Requirements**
+#### **Requirements**
 ```
 1.  A table displaying Covid19 statistics – Searchable/Filterable by Country
 
