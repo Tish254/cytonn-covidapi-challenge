@@ -1,0 +1,32 @@
+.navbar {
+    height: 100vh;
+    background: white;
+}
+
+.app-logo__container {
+    height: 4rem;
+    color: white;
+    margin: 1rem auto 2rem auto;
+}
+
+.app-logo__text {
+    font-weight: bold;
+    font-size: var(--medium-font);
+    width: 60%;
+    color: white;
+}
+
+.app-logo__icon {
+    /* font-size: var(--large-font); */
+    width: 30%;
+    height: 100%;
+}
+
+.loader {
+    height: 100%;
+    width: 100%;
+}
+
+.section {
+    padding: 20px;
+}
