@@ -41,7 +41,7 @@ const Dashboard = () => {
         </div>
 
       </div>
-      <DataTable />
+      
       {/* <BarChart /> */}
     </div>
   );

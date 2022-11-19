@@ -1,13 +1,15 @@
-import React from 'react'
-import { Table } from "antd";
+import React, { useState } from 'react'
+import { Table, Input } from "antd";
 import { useGetCountriesQuery, useGetStatisticsQuery } from '../services/covidApi';
 import Loader from './Loader';
 
+const { Search } = Input;
+
 const DataTable = () => {
+  const [search, setSearch] = useState("")
+  const {data, isFetching, isLoading} = useGetStatisticsQuery(search);
 
-  const {data, isFetching} = useGetStatisticsQuery();
-
-  if (isFetching) return <Loader />
+  if (isLoading) return <Loader />
 
   console.log()
 
@@ -66,8 +68,16 @@ const DataTable = () => {
     },
   ];
 
+  const onSearchHandler = (value) => {
+    if (value) setSearch(value.toLowerCase())
+  }
+
   return (
-    <Table dataSource={dataSource} columns={columns} />
+    <>
+    <Search placeholder="Search by country " loading={isFetching} onSearch={onSearchHandler} allowClear/>
+      <Table dataSource={dataSource} columns={columns} size="middle" style={{marginBottom: "auto"}}/>
+    </>
+
   )
 }
 

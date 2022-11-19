@@ -1,9 +1,13 @@
 import React from 'react'
+
+import { DataTable } from '../../components'
 import './CovidStatistics.css'
 
 const CovidStatistics = () => {
   return (
-    <div>CovidStatistics</div>
+    <div className="flex-col section">
+      <DataTable />
+    </div>
   )
 }
 
