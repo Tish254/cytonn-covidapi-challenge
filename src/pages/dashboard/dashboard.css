@@ -1,6 +1,37 @@
 .dash__top {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    gap: 20px
+  display: grid;
+  grid-template-columns: auto;
+  width: 100%;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.card__top-text {
+  font-weight: bold;
+}
+
+.flex-row.card__top {
+  gap: 12px;
+}
+
+.card__top-text__container {
+  width: 60%;
+}
+
+.card__top-icon {
+  width: 20%;
+  height: 80%;
+  color: #1677ff;
+}
+
+@media screen and (min-width: 768px) {
+  .dash__top {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .dash__top {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }

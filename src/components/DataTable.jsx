@@ -1,32 +1,48 @@
 import React, { useState } from "react";
-import { Table, Input } from "antd";
+import { Table, Input, Button } from "antd";
 import {
   useGetCountriesQuery,
   useGetStatisticsQuery,
 } from "../services/covidApi";
 import Loader from "./Loader";
+import moment from "moment";
+import millify from "millify";
 
 const { Search } = Input;
 
 const DataTable = () => {
   const [search, setSearch] = useState(null);
-  const { data, isFetching, isLoading } = useGetStatisticsQuery(search);
+  const {
+    data: countryData,
+    isFetching: fetchingCountryData,
+    isLoading: loadingCountryData,
+  } = useGetCountriesQuery();
+  const {
+    data: statisticsData,
+    isFetching: fetchingStatisticsData,
+    isLoading: loadingStatisticsData,
+  } = useGetStatisticsQuery(search);
 
-  if (isLoading) return <Loader />;
+  if (loadingCountryData || loadingStatisticsData || fetchingCountryData) return <Loader />;
 
-  const dataSource = data?.response?.map(
-    ({ continent, country, population, day, cases, deaths }) => ({
-      continent,
-      country,
-      population,
-      day,
-      total: cases.total,
-      active: cases.active,
-      new: cases.new,
-      recovered: cases.active,
-      critical: cases.critical,
-      deaths: deaths.total,
-    })
+  const dataSource = statisticsData?.response?.map(
+    ({ continent, country, population, cases, deaths, time }, index) => {
+      if (countryData?.response?.includes(country))
+        return {
+          key: `${index + 1}`,
+          continent,
+          country,
+          population: millify(+population),
+          updated: moment(time).fromNow(),
+          total: millify(+cases.total) ?? 0,
+          active: millify(+cases.active) ?? 0,
+          new: cases.new ?? 0,
+          recovered: millify(+cases.active) ?? 0,
+          critical: millify(+cases.critical) ?? 0,
+          deaths: millify(+deaths.total) ?? 0,
+        };
+      return {};
+    }
   );
 
   const columns = [
@@ -46,9 +62,9 @@ const DataTable = () => {
       key: "population",
     },
     {
-      title: "Date",
-      dataIndex: "date",
-      key: "date",
+      title: "Updated",
+      dataIndex: "updated",
+      key: "updated",
     },
     {
       title: "Total Cases",
@@ -86,22 +102,36 @@ const DataTable = () => {
     if (value) setSearch(value.toLowerCase());
   };
 
+  const allButtonClicked = (e) => {
+    setSearch(null);
+  };
+
   return (
     <>
-      <div className="flex-row">
+      <div className="flex-row app__statistics__top">
         <Search
           placeholder="Search by country "
-          loading={isFetching}
+          loading={fetchingStatisticsData}
           onSearch={onSearchHandler}
           className={"app-date-picker"}
           allowClear
         />
+        <Button
+          type="primary"
+          onClick={allButtonClicked}
+        >
+          Display all
+        </Button>
       </div>
       <Table
         dataSource={dataSource}
         columns={columns}
         size="middle"
         style={{ marginBottom: "auto" }}
+        scroll={{
+          x: 1500,
+          y: 500,
+        }}
       />
     </>
   );

@@ -13,14 +13,19 @@ export const covidApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: process.env.REACT_APP_COVID_API_URL }),
   endpoints: (builder) => ({
     getCountries: builder.query({
-      query: (country) => ( country ? createRequest(`/countries?search=${country}`) : createRequest(`/countries`)),
+      query: (country) =>
+        country
+          ? createRequest(`/countries?search=${country}`)
+          : createRequest(`/countries`),
     }),
     getStatistics: builder.query({
       query: (country) =>
-        (country ? createRequest(`/statistics?country=${country}`) : createRequest(`/statistics`)),
+        country
+          ? createRequest(`/statistics?country=${country}`)
+          : createRequest(`/statistics`),
     }),
     getHistory: builder.query({
-      query: ({country="all", day=moment().format("YYYY-MM-D")}) =>
+      query: ({ country = "all", day = moment().format("YYYY-MM-D") }) =>
         createRequest(`/history?country=${country}&day=${day}`),
     }),
   }),

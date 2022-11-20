@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,10 +10,10 @@ import {
   Title,
   Tooltip,
   Legend,
-} from 'chart.js';
-import { Bar } from 'react-chartjs-2';
-import 'chartjs-adapter-date-fns';
-import millify from 'millify';
+} from "chart.js";
+import { Bar, Line } from "react-chartjs-2";
+import "chartjs-adapter-date-fns";
+import millify from "millify";
 
 ChartJS.register(
   CategoryScale,
@@ -27,25 +27,30 @@ ChartJS.register(
   Legend
 );
 
-const BarChart = ({covidData}) => {
-
+const BarChart = ({ covidData, title, type }) => {
   const data = {
     labels: covidData.timeLabels,
     datasets: [
       {
-        label: 'Cases',
+        label: "Cases",
         data: covidData.covidCases,
-        backgroundColor: 'rgb(255, 99, 132)',
+        backgroundColor: "rgb(255, 99, 132)",
+        borderRadius: 20,
+        borderWidth: 1,
       },
       {
-        label: 'Deaths',
+        label: "Deaths",
         data: covidData.covidDeaths,
-        backgroundColor: 'rgb(75, 192, 192)',
+        backgroundColor: "rgb(75, 192, 192)",
+        borderRadius: 20,
+        borderWidth: 1,
       },
       {
-        label: 'Tests',
+        label: "Tests",
         data: covidData.covidTests,
-        backgroundColor: 'rgb(53, 162, 235)',
+        backgroundColor: "rgb(53, 162, 235)",
+        borderWidth: 1,
+        borderRadius: 20,
       },
     ],
   };
@@ -54,37 +59,56 @@ const BarChart = ({covidData}) => {
     plugins: {
       title: {
         display: true,
-        text: 'Covid-19 Hourly History',
+        text: `Covid-19 ${
+          title && title !== "all" ? title.toUpperCase() : "World"
+        } Hourly History`,
+        align: "end",
+      },
+      legend: {
+        align: "end",
+        labels: {
+          usePointStyle: true,
+          pointStyle: "rectRounded",
+        },
       },
     },
     responsive: true,
     interaction: {
-      mode: 'index',
+      mode: "index",
       intersect: false,
     },
     scales: {
       x: {
-        title:{ display: true, text: "Hours"},
+        title: { display: true, text: "Hours" },
         stacked: true,
         type: "time",
         time: {
           unit: "hour",
         },
+        grid: {
+          color: "red",
+        },
       },
       y: {
-        title: { display: true, text: "Covid-19 Cases, Deaths, Tests"},
+        title: { display: true, text: "Covid-19 Cases, Deaths, Tests" },
         stacked: true,
         ticks: {
           callback: function (value) {
-              return millify(value)
+            return millify(value);
           },
-      }
+        },
       },
     },
   };
   return (
-    <Bar options={options} data={data} />
+    <>
+      {!type ? (
+        <Bar options={options} data={data} />
+      ) : (
+        <Line options={options} data={data} />
+      )}
+    </>
   );
-}
+};
 
-export default BarChart
+export default BarChart;

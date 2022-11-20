@@ -5,9 +5,9 @@ import { Typography } from 'antd';
 
 const { Text } = Typography;
 
-const Logo = () => {
+const Logo = ({show=true}) => {
   return (
-    <Link  className="flex-row app-logo__container" type="secondary">
+    <Link  className={show ? `flex-row app-logo__container` : "mobile-nav__logo"} to="/dashboard">
         <MdCoronavirus className='app-logo__icon' />
         <Text className="app-logo__text">
             Covid-19 Tracker
