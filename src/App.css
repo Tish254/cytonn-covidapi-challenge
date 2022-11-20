@@ -31,3 +31,8 @@
     padding: 20px;
     margin-bottom: auto;
 }
+
+.app-date-picker {
+    align-items: flex-start;
+    width: 40%;
+}

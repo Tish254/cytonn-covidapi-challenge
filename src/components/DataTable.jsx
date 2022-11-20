@@ -1,84 +1,110 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import { Table, Input } from "antd";
-import { useGetCountriesQuery, useGetStatisticsQuery } from '../services/covidApi';
-import Loader from './Loader';
+import {
+  useGetCountriesQuery,
+  useGetStatisticsQuery,
+} from "../services/covidApi";
+import Loader from "./Loader";
 
 const { Search } = Input;
 
 const DataTable = () => {
-  const [search, setSearch] = useState("")
-  const {data, isFetching, isLoading} = useGetStatisticsQuery(search);
+  const [search, setSearch] = useState(null);
+  const { data, isFetching, isLoading } = useGetStatisticsQuery(search);
 
-  if (isLoading) return <Loader />
+  if (isLoading) return <Loader />;
 
-  console.log()
-
-  const dataSource = data?.response?.map(({continent, country, population,day, cases, deaths}) => ({continent, country, population, day, total: cases.total, active : cases.active, new: cases.new, recovered: cases.active, critical: cases.critical, deaths: deaths.total  }))
+  const dataSource = data?.response?.map(
+    ({ continent, country, population, day, cases, deaths }) => ({
+      continent,
+      country,
+      population,
+      day,
+      total: cases.total,
+      active: cases.active,
+      new: cases.new,
+      recovered: cases.active,
+      critical: cases.critical,
+      deaths: deaths.total,
+    })
+  );
 
   const columns = [
     {
-      title: 'Continent',
-      dataIndex: 'continent',
-      key: 'continent',
+      title: "Continent",
+      dataIndex: "continent",
+      key: "continent",
     },
     {
-      title: 'Country',
-      dataIndex: 'country',
-      key: 'country',
+      title: "Country",
+      dataIndex: "country",
+      key: "country",
     },
     {
-      title: 'Population',
-      dataIndex: 'population',
-      key: 'population',
+      title: "Population",
+      dataIndex: "population",
+      key: "population",
     },
     {
-      title: 'Date',
-      dataIndex: 'date',
-      key: 'date',
+      title: "Date",
+      dataIndex: "date",
+      key: "date",
     },
     {
-      title: 'Total Cases',
-      dataIndex: 'total',
-      key: 'total',
+      title: "Total Cases",
+      dataIndex: "total",
+      key: "total",
     },
     {
-      title: 'Active',
-      dataIndex: 'active',
-      key: 'active',
+      title: "Active",
+      dataIndex: "active",
+      key: "active",
     },
     {
-      title: 'New',
-      dataIndex: 'new',
-      key: 'new',
+      title: "New",
+      dataIndex: "new",
+      key: "new",
     },
     {
-      title: 'Recovered',
-      dataIndex: 'recovered',
-      key: 'recovered',
+      title: "Recovered",
+      dataIndex: "recovered",
+      key: "recovered",
     },
     {
-      title: 'Critical',
-      dataIndex: 'critical',
-      key: 'critical',
+      title: "Critical",
+      dataIndex: "critical",
+      key: "critical",
     },
     {
-      title: 'Deaths',
-      dataIndex: 'deaths',
-      key: 'deaths',
+      title: "Deaths",
+      dataIndex: "deaths",
+      key: "deaths",
     },
   ];
 
   const onSearchHandler = (value) => {
-    if (value) setSearch(value.toLowerCase())
-  }
+    if (value) setSearch(value.toLowerCase());
+  };
 
   return (
     <>
-    <Search placeholder="Search by country " loading={isFetching} onSearch={onSearchHandler} allowClear/>
-      <Table dataSource={dataSource} columns={columns} size="middle" style={{marginBottom: "auto"}}/>
+      <div className="flex-row">
+        <Search
+          placeholder="Search by country "
+          loading={isFetching}
+          onSearch={onSearchHandler}
+          className={"app-date-picker"}
+          allowClear
+        />
+      </div>
+      <Table
+        dataSource={dataSource}
+        columns={columns}
+        size="middle"
+        style={{ marginBottom: "auto" }}
+      />
     </>
+  );
+};
 
-  )
-}
-
-export default DataTable
+export default DataTable;
