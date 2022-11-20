@@ -22,3 +22,10 @@ for Each country in the world using charts to show Covid-19 history for the last
 
     - Y-axis – cases, deaths and tests
 ```
+#### **Project Image**
+#### **Project Links**
+- [Live Site](https://cyhealth-covid-tracker.netlify.app/)
+- [Github Repo](https://github.com/Tish254/cytonn-covidapi-challenge)
+
+#### **Autho**
+*Oscar Tiego*
